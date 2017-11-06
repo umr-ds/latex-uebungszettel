@@ -57,6 +57,7 @@
 
 \RequirePackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
+\def\arraystretch{1.2}
 
 % Enables retrieval of ENV variables (https://tex.stackexchange.com/questions/62010/can-i-access-system-environment-variables-from-latex-for-instance-home/62032#62032)
 \RequirePackage{catchfile}
@@ -306,7 +307,7 @@
 \newcommand{\Task}[2]{%
     \ifnum\value{section}=0 \ClassError{exerciseexercisecls}{No exercise part defined}{Use \string\Exercise{} before \string\Task{}.}\fi%
     \addtosectionpoints{\arabic{section}}{#1}%
-\subsection{\normalfont\normalsize#2 \hfill\points{#1}}%
+	\subsection{\normalfont\normalsize#2 \hfill\points{#1}}%
     \defineproblempoints{\arabic{section}}{\arabic{subsection}}{#1}%
     \setboolean{@compoundproblem}{false}%
 }%
@@ -315,7 +316,7 @@
 \newcommand{\CompoundTask}[1]{%
     \ifnum\value{section}=0 \ClassError{exercise.cls}{No exercise part defined}{Use \string\Exercise{} before \string\CompoundTask{}.}\fi%
     \ifcsname problempointcounter@s\the\numexpr\value{section}\relax p\the\numexpr\value{subsection}+1\relax\endcsname\else\defineproblempoints{\the\numexpr\value{section}\relax}{\the\numexpr\value{subsection}+1\relax}{0}\fi%
-    \subsection{\normalfont\normalsize\points{\problempoints{\arabic{section}}{\arabic{subsection}}} #1}%
+	\subsection{\normalfont\normalsize#1 \hfill\points{\problempoints{\arabic{section}}{\arabic{subsection}}}}%
     \defineproblempoints{\arabic{section}}{\arabic{subsection}}{0}%
     \setboolean{@compoundproblem}{true}%
 }%
