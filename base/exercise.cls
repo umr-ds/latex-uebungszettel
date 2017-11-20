@@ -55,6 +55,7 @@
     \RequirePackage[]{graphicx}         % Grafiken
 \fi
 
+\RequirePackage{courier}
 \RequirePackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
 \def\arraystretch{1.2}
