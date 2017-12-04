@@ -1,5 +1,5 @@
 SOURCEFILES = base/exercise.cls
-PDFLATEX = pdflatex -shell-escape --interaction=batchmode
+PDFLATEX = pdflatex -shell-escape --interaction=batchmode -halt-on-error
 
 .PHONY: all clean
 
