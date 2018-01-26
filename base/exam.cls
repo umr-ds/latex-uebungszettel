@@ -195,11 +195,12 @@
 	\Large{\@course{} -- \@semester{}}\\
 	\large{\@examdatetime}
 
-    \vspace{3\baselineskip}
+    \vspace{2\baselineskip}
 
     %% Personal information
     \begin{minipage}[!h]{\textwidth}
         \centering
+        \renewcommand{\arraystretch}{1.8}
         \begin{tabular}{|r|p{8cm}|}
             \hline
             \@firstname&\\ \hline
@@ -213,13 +214,13 @@
         \end{tabular}
     \end{minipage}
 
-    \vspace{2\baselineskip}
+    \vspace{\baselineskip}
 
     %% General hints
     \section*{\@generalhintstitle}
     \@generalhints
 
-    \vspace{5\baselineskip}
+    \vspace{2\baselineskip}
 
     %% Points Table
     \@markstable

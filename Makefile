@@ -1,4 +1,4 @@
-SOURCEFILES = base/exercise.cls
+SOURCEFILES = base/exercise.cls base/exam.cls
 PDFLATEX = pdflatex -shell-escape --interaction=batchmode -halt-on-error
 
 .PHONY: all clean
