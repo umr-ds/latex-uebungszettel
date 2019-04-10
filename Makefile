@@ -20,10 +20,12 @@ aufgaben/%.pdf: aufgaben/%.tex ${SOURCEFILES}
 	echo $@
 	AUFGABE=$(basename $@).tex $(PDFLATEX) -jobname=$(basename $@) base/stub.tex
 	AUFGABE=$(basename $@).tex $(PDFLATEX) -jobname=$(basename $@) base/stub.tex
+	AUFGABE=$(basename $@).tex $(PDFLATEX) -jobname=$(basename $@) base/stub.tex
 	@rm $(basename $@).aux $(basename $@).log $(basename $@).out
 
 # uebungen pdfs are made by running pdflatex twice
 %.pdf : source/%.tex aufgaben/*/*.tex ${SOURCEFILES}
+	$(PDFLATEX) -jobname=$(basename $@) $<
 	$(PDFLATEX) -jobname=$(basename $@) $<
 	$(PDFLATEX) -jobname=$(basename $@) $<
 	@rm $(basename $@).aux $(basename $@).log $(basename $@).out
@@ -31,6 +33,7 @@ aufgaben/%.pdf: aufgaben/%.tex ${SOURCEFILES}
 # loesungen pdfs are made by setting SOLUTION env variable
 loesungen/l_%.pdf : source/%.tex aufgaben/*/*.tex ${SOURCEFILES}
 	mkdir -p loesungen
+	SOLUTION=true $(PDFLATEX) -jobname=$(basename $@) $<
 	SOLUTION=true $(PDFLATEX) -jobname=$(basename $@) $<
 	SOLUTION=true $(PDFLATEX) -jobname=$(basename $@) $<
 	@rm $(basename $@).aux $(basename $@).log $(basename $@).out
