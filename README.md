@@ -1,5 +1,7 @@
 # LaTeX basierte Übungszettel
 
+Dieses Framework dient zur Generierung von LaTeX-basierten Übungszetteln. Aufgaben und ihre Ressourcen werden in einzelnen Ordnern bzw. Dateien verwaltet und können so insbesondere mit gängigen Versionsverwaltungstools erfasst werden.
+
 ## Aufbau
 
 - **aufgaben/\*/\*.tex**: Aufgabenstellungen komplexerer Aufgaben
