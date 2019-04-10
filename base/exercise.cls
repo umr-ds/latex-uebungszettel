@@ -5,6 +5,7 @@
 % (c) 2017 adjustments by Milan Schmittner, SEEMOO, TU Darmstadt
 % (c) 2017 adjustments by Hameer Abbasi and Robin Klose, SEEMOO, TU Darmstadt
 % (c) 2017 adjustments by Artur Sterz and Jonas Höchst, Distributed Systems, Uni Marburg
+% (c) 2019 adjustments by Markus Sommer, Distributed Systems, Uni Marburg
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Identification %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -27,7 +28,6 @@
 \ProcessOptions
 
 % packages%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\RequirePackage{ngerman}          % deutsche Strukturtexte
 \PassOptionsToPackage{ngerman}{babel}
 \PassOptionsToPackage{german}{hyperref}
 
