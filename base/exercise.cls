@@ -32,6 +32,8 @@
 \PassOptionsToPackage{german}{hyperref}
 
 \RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{lmodern}
 \RequirePackage[hidelinks]{hyperref}
 \RequirePackage[headsepline,footsepline]{scrlayer-scrpage} %% KOMA header and footer
 \RequirePackage{geometry}               % Detailierte Angabe von Seitenabst‰nden.

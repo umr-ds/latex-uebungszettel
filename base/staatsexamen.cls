@@ -206,12 +206,7 @@
             \hline
             \@firstname&\\ \hline
             \@lastname&\\ \hline
-            \@code&\\ \hline
             \@studyid&\\ \hline
-            \@fb&\\ \hline
-            \@studyregulations&\\ \hline
-            \@study&\\ \hline
-            \@lasttry & \qquad \qquad $\square$ \@yes \qquad \qquad \qquad $\square$ \@no \\ \hline
         \end{tabular}
     \end{minipage}
 
