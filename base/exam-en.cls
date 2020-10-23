@@ -12,7 +12,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{exercise}[2017/10/23]
 
-\LoadClass[twoside,a4paper,10pt]{article}
+\LoadClass[a4paper,10pt]{article}
 
 \RequirePackage{ifthen}
 
@@ -33,7 +33,6 @@
 
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc} 
-\RequirePackage{lmodern}
 \RequirePackage[hidelinks]{hyperref}
 \RequirePackage[headsepline,footsepline]{scrlayer-scrpage} %% KOMA header and footer
 \RequirePackage{geometry}               % Detailierte Angabe von Seitenabst‰nden.
@@ -50,12 +49,15 @@
 \RequirePackage{etoolbox}               % For some various utility commands
 \RequirePackage{pgffor}                 % For looping programatically
 \RequirePackage{titlesec}
+\RequirePackage{multirow}
 
 \ifpdf
     \RequirePackage[pdftex]{graphicx}   % Grafiken
 \else
     \RequirePackage[]{graphicx}         % Grafiken
 \fi
+
+\newcommand{\@examtypeblock}{}
 
 \RequirePackage{courier}
 \RequirePackage{helvet}
@@ -81,8 +83,32 @@
 \def\@solutiontitle{Lösungsvorschlag}
 \def\@logo{base/marburg}
 
-\def\@points{Punkte}
-\def\@point{Punkt}
+\def\@points{Points}
+\def\@point{Point}
+
+\def\@allowedresourcetitle{Acceptable Aids}
+\def\@generalhintstitle{General Information}
+
+\def\@correctionschematitle{Korrekturschema}
+
+\def\@firstname{Given Name}
+\def\@lastname{Family Name}
+\def\@studyid{Mat.Nr.}
+\def\@fb{Degree Programme}
+\def\@study{Semester}
+\def\@code{Codeword}
+\def\@lasttry{Last Attempt?}
+\def\@yes{Yes}
+\def\@no{No}
+\def\@twtruebox{w}
+
+\def\@titleproblem{\textbf{Exercise}}
+\def\@titleachievable{\textbf{Maximum}}
+\def\@titlepoints{\textbf{Attained}}
+\def\@titlestudyid{Mat.Nr.}
+    
+\def\@titlegrade{Grade}
+\def\@titlefinalgrade{\textbf{Grade}}
 
 
 % set first line indent %%%%%%%%%%%%%%%%%%%%
@@ -97,6 +123,15 @@
 
 % Header & Footer %%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagestyle{scrheadings}
+
+\ihead{\textsf{\@studyid:} \hspace{4cm}}
+\ohead{}
+
+% Footer
+\ofoot{\thepage~/~\pageref{page:lastpage}}
+\ifoot{\footnotesize
+    \@course{} -- \@semester{} --  \@examtypeblock{}
+}
 
 %\scrlayer-scrpage{
 %headsepline,                %% Separation line below the header
@@ -141,6 +176,7 @@
 
 % SetTitlePage %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\setTitlePage} {
+
 	\vspace*{-1.5cm}
     \raisebox{-0.5\height}{\includegraphics[width=5cm]{\@logo}}
 	\hfill
@@ -153,26 +189,64 @@
     \end{minipage}
 
 	\begin{center}
-	    % \vspace{\baselineskip} 
 
-	    \huge{\textbf{Übung \@exercisenumberblock}}\\
-	    \vspace{0.5\baselineskip}
-	    \Large{\@course{} -- \@semester{}}\\
-	    \large{Rückgabe bis: \@returndate}
+	\huge{\textbf{\@examtypeblock}}\\
+	\vspace{0.5\baselineskip}
+	\Large{\@course{} -- \@semester{}}\\
+	\large{\@examdatetime}
 
-	    \vspace{\baselineskip}
-	    \@markstable
+    \vspace{2\baselineskip}
 
-	\end{center}
+    %% Personal information
+    \begin{minipage}[!h]{\textwidth}
+        \centering
+        \renewcommand{\arraystretch}{1.8}
+        \begin{tabular}{|r|p{8cm}|}
+            \hline
+            \@firstname&\\ \hline
+            \@lastname&\\ \hline
+            \@code&\\ \hline
+            \@studyid&\\ \hline
+            \@fb&\\ \hline
+            \@study&\\ \hline
+            \@lasttry & \qquad \qquad $\square$ \@yes \qquad \qquad \qquad $\square$ \@no \\ \hline
+        \end{tabular}
+    \end{minipage}
+
+    \vspace{\baselineskip}
+
+    %% General hints
+    \section*{\@generalhintstitle}
+    \@generalhints
+
+    \vspace{2\baselineskip}
+
+    %% Points Table
+    \@markstable
+
+    \end{center}
+
+    \clearpage
 }
 
 % public set commands %%%%%%%%%%%%%
+% \newcommand{\titlepageheader}[1]{\def\@titlepageheader{#1}}
 \newcommand{\course}[1]{\def\@course{#1}}
 \newcommand{\semster}[1]{\def\@semester{#1}}
 \newcommand{\returndate}[1]{\def\@returndate{#1}}
 \newcommand{\allowedresources}[1]{\def\@allowedresources{#1}}
 \newcommand{\markstable}[1]{\def\@markstable{#1}}
 \newcommand{\points}[1]{\ifnum\pdf@strcmp{#1}{1}=\z@ \textbf{#1~\@point} \else \textbf{#1~\@points} \fi}
+\newcommand{\examdatetime}[1]{\def\@examdatetime{#1}}
+\newcommand{\generalhints}[1]{\def\@generalhints{#1}}
+
+% Signature
+\newcommand{\signature}[2]{
+    \par\noindent\makebox[#1]{\hrulefill}
+    \par\noindent\makebox[#1][l]{\textbf{#2}}
+}
+
+\newcommand{\examtype}[1] {\renewcommand{\@examtypeblock}{#1}}
 
 % solution - environment %%%%%%%%%%
 \ifthenelse{\boolean{@solution}} {
@@ -225,6 +299,11 @@
     \setlst
     \thispagestyle{empty}
     \setTitlePage
+}
+
+% at document end
+\AtEndDocument{
+    \label{page:lastpage}
 }
 
 % Get the number of points associated with a particular exercise part/section
@@ -299,6 +378,7 @@
 
 % Command for creating an exercise part/section
 \newcommand{\Exercise}[1]{%
+    \newpage
     \ifcsname totalproblems@s\the\numexpr\value{section}\relax\endcsname\else\definetotalproblems{\the\numexpr\value{section}\relax}{\the\numexpr\value{subsection}\relax}\fi%
     \ifcsname sectionpointcounter@s\the\numexpr\value{section}+1\relax\endcsname\else\definesectionpoints{\the\numexpr\value{section}+1\relax}{0}\fi%
     \section{#1 \hfill\points{\sectionpoints{\arabic{section}}}}%
@@ -353,9 +433,12 @@
     \fi
 }
 
-% Generate the marks table automatically with the encountered number of exercise parts and their respective total point counts
+% Generate the marks table automatically with the encountered number of exam parts and their respective total point counts
 \markstable{
-    \Large
+    \newcounter{colsCounter}
+    \setcounter{colsCounter}{2}
+
+    % \Large
     % If totalsections@ is defined, totalpoints@ will also be defined
     \ifcsname totalsections@\endcsname
     \edef\rowdescriptor{|r|}
@@ -365,7 +448,20 @@
         \xappto\problemdescriptor{\ii &}
         \xappto\achievabledescriptor{\sectionpoints{\ii}&}
         \gappto\pointsdescriptor{&\hspace*{0.75cm}}
+        \stepcounter{colsCounter}
     }
+    \expandafter\edef\csname totalsum@\endcsname{\csname totalpoints@\endcsname}
+    \gappto\rowdescriptor{|c||c|}
+    \expandafter\tabular\expandafter{\rowdescriptor}
+    \hline
+    \@titleproblem & \problemdescriptor $\sum$ & \@titlefinalgrade\\
+    \hline \hline
+    
+    \@titleachievable & \achievabledescriptor \csname totalsum@\endcsname & \multirow{2}{*}{}\\
+    \cline{1-\value{colsCounter}}
+    \@titlepoints & \pointsdescriptor & \\
+    \hline
+    \endtabular
     \fi
 }
 

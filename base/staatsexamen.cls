@@ -5,7 +5,7 @@
 % (c) 2017 adjustments by Milan Schmittner, SEEMOO, TU Darmstadt
 % (c) 2017 adjustments by Hameer Abbasi and Robin Klose, SEEMOO, TU Darmstadt
 % (c) 2017 adjustments by Artur Sterz and Jonas Höchst, Distributed Systems, Uni Marburg
-% (c) 2019 adjustments by Markus Sommer, Distributed Systems, Uni Marburg
+% (c) 2019-2020 adjustments by Markus Sommer, Distributed Systems, Uni Marburg
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Identification %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -32,7 +32,7 @@
 \PassOptionsToPackage{german}{hyperref}
 
 \RequirePackage[utf8]{inputenc}
-\RequirePackage[T1]{fontenc}
+\RequirePackage[T1]{fontenc} 
 \RequirePackage[hidelinks]{hyperref}
 \RequirePackage[headsepline,footsepline]{scrlayer-scrpage} %% KOMA header and footer
 \RequirePackage{geometry}               % Detailierte Angabe von Seitenabst‰nden.
@@ -95,9 +95,8 @@
 \def\@lastname{Nachname}
 \def\@studyid{Matrikelnummer}
 \def\@fb{Studiengang}
-\def\@study{Semester}
+\def\@study{Fachsemester}
 \def\@code{Codewort}
-\def\@studyregulations{Studienordnung}
 \def\@lasttry{Letzter Prüfungsversuch?}
 \def\@yes{Ja}
 \def\@no{Nein}
